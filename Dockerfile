@@ -28,7 +28,6 @@ ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_GODOT_EXPORT_GAME="/root/workspace/exports/" \
   DOCKER_GODOT_EMSCRIPTEN="/root/workspace/emscripten/" \
   DOCKER_GODOT_SERVER_BINARY="/root/workspace/godot/templates/linux_server_64" \
-  ${DOCKER_WORKING_DIR}
   DOCKER_TAG_NAME="docker-godot-3-build-and-run:latest"
 
 RUN mkdir -p DOCKER_WORKING_DIR
