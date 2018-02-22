@@ -33,13 +33,13 @@ The Image will clone the [godot source](https://github.com/godotengine/godot) an
 
 There are several shell scripts available. 
 
-- build-docker.sh	[--build-arg serverport=8910] .. starting point for creating the docker image.
-- build-run-docker.sh [portnumber] .. run your created docker image and create a container.
-- build-download-stable.sh .. downloads latest godot export templates - _is called during build process_.
-- build-emscripten.sh .. installs and setup emscrip in the docker image - _is called during build process_.
-- build-godot.sh [all] .. builds the godot headless server binary - _is called during build process (takes a looong time)_.
-- build-game.sh <game-name> .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
-- build-run-game.sh <path-to-server.tscn> .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
+- `build-docker.sh`	[--build-arg serverport=8910]` .. starting point for creating the docker image.
+- `build-run-docker.sh [portnumber]` .. run your created docker image and create a container.
+- `build-download-stable.sh` .. downloads latest godot export templates - _is called during build process_.
+- `build-emscripten.sh` .. installs and setup emscrip in the docker image - _is called during build process_.
+- `build-godot.sh [all]` .. builds the godot headless server binary - _is called during build process (takes a looong time)_.
+- `build-game.sh <game-name>` .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
+- `build-run-game.sh <path-to-server.tscn>` .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
 
 For more information please see help (-h) for each script. 
 
