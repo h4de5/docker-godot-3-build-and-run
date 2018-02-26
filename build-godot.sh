@@ -2,8 +2,9 @@
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
   echo "To compile the godot source from current master: "
-  echo "  docker exec -d $DOCKER_TAG_NAME $DOCKER_BUILD_SCRIPT/${0}" [all]
+  echo "  docker exec -d h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/${0}" [all]
   echo "use with parameter 'all' to compile export templates for X11, windows and javascript"
+  echo "this should only be called once a container is made from the image."
   exit 0
 fi
 
@@ -31,7 +32,7 @@ mkdir -p $DOCKER_GODOT_EXPORT_TEMPLATES
 
 # will be used to export and run games
 echo "* Building godot for Linux Server"
-scons -j 2 p=server target=release_debug tools=no bits=64
+scons -j 2 p=server target=release_debug tools=false bits=64
 cp bin/godot_server.server.opt.debug.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64
 upx $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64
 
