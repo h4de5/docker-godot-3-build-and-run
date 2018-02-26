@@ -14,6 +14,10 @@ mv Godot_v3.0-stable_export_templates.tpz Godot_v3.0-stable_export_templates.zip
 unzip Godot_v3.0-stable_export_templates.zip
 mv templates/* .
 rmdir templates
+# link to home directory
+ln -s ~/workspace/godot/templates ~/.godot/templates
+# remove download
+rm -f Godot_v3.0-stable_export_templates.zip
 
 echo "** Download and unzip complete!"
 

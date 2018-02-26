@@ -32,9 +32,17 @@ mkdir -p $DOCKER_GODOT_EXPORT_TEMPLATES
 
 # will be used to export and run games
 echo "* Building godot for Linux Server"
-scons -j 2 p=server target=release_debug tools=false bits=64
-cp bin/godot_server.server.opt.debug.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64
+scons -j 2 p=server target=release tools=false bits=64
+cp bin/godot_server.server.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64
 upx $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64
+
+scons -j 2 p=server target=release_debug tools=false bits=64
+cp bin/godot_server.server.opt.debug.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64_debug
+upx $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64_debug
+
+scons -j 2 p=server target=release_debug tools=true bits=64
+cp bin/godot_server.server.opt.tools.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64_tools
+upx $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64_tools
 
 cd 
 if [ "$1" == "all" ] ; then

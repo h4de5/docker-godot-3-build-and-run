@@ -41,5 +41,15 @@ There are several shell scripts available.
 - `build-game.sh <game-name>` .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
 - `build-run-game.sh <path-to-server.tscn>` .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
 
+## Examples
+Run command to temporary build container and run your godot game within a headless server:
+`docker run --rm -it -p 8910 -v `pwd`:/root/workspace/game/ h4de5/docker-
+godot-3-build-and-run:latest /root/workspace/build-scripts/build-run-game.sh <path-to-server.tscn>`
+
+Run command to export your game to windows/linux/javascript - binaries will be placed in /bin/ directory:
+`docker run --rm -it -v `pwd`:/root/workspace/game/ h4de5/docker-
+godot-3-build-and-run:latest /root/workspace/build-scripts/build-game.sh <name-your-game>`
+
+
 For more information please see help (-h) for each script. 
 
