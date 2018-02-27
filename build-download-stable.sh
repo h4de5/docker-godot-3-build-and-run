@@ -15,9 +15,16 @@ unzip Godot_v3.0-stable_export_templates.zip
 mv templates/* .
 rmdir templates
 # link to home directory
+mkdir -p ~/.godot
 ln -s ~/workspace/godot/templates ~/.godot/templates
 # remove download
 rm -f Godot_v3.0-stable_export_templates.zip
+# create cache and config directories
+# see https://github.com/godotengine/godot/issues/16779
+mkdir -p ~/.local/share
+mkdir -p ~/.config
+mkdir -p ~/.cache
+
 
 echo "** Download and unzip complete!"
 
