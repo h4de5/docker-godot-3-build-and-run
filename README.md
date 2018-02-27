@@ -1,6 +1,9 @@
 # docker-godot-3-build-and-run
 
 **This is work in progress!**
+
+**UPDATE: 2018-02-27 - I just found out, that it is not possible to export a game using the headless server plattform due to the lack of a GPU or any GPU access on such a server. That's why i decided to postpone any further developement of this docker image until this is made available. This docker image can still be used to build and run the headless server - as well as, with small modifications of the build-godot.sh file, build the godot editor from the latest source for windows and linux.**
+
 Also this is my first steps in docker - feel free to submit changes :) 
 
 Use this docker image script to create a working build environment for **Godot v3**
@@ -43,12 +46,12 @@ There are several shell scripts available.
 
 ## Examples
 Run command to temporary build container and run your godot game within a headless server:
-`docker run --rm -it -p 8910 -v `pwd`:/root/workspace/game/ h4de5/docker-
-godot-3-build-and-run:latest /root/workspace/build-scripts/build-run-game.sh <path-to-server.tscn>`
+
+> docker run --rm -it -p 8910 -v `pwd`:/root/workspace/game/ h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/build-run-game.sh <path-to-server.tscn>
 
 Run command to export your game to windows/linux/javascript - binaries will be placed in /bin/ directory:
-`docker run --rm -it -v `pwd`:/root/workspace/game/ h4de5/docker-
-godot-3-build-and-run:latest /root/workspace/build-scripts/build-game.sh <name-your-game>`
+
+> docker run --rm -it -v `pwd`:/root/workspace/game/ h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/build-game.sh <name-your-game>
 
 
 For more information please see help (-h) for each script. 
