@@ -1,8 +1,8 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 LABEL maintainer="h4de5@users.noreply.github.com" \
-  version="3.0" \
-  description="Docker image to create a godot v3 build environment, export your game as binary and run your game as headless server. use --build-arg serverport=<port> to select an open port."
+  version="3.0.2" \
+  description="Docker image to create a godot v3.0.2 build environment, export your game as binary and run your game as headless server. use --build-arg serverport=<port> to select an open port."
 
 # a serverport can be given at build time
 ARG serverport=8910
@@ -23,6 +23,7 @@ RUN apt-get --yes install build-essential scons pkg-config libx11-dev libxcursor
 ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_BUILD_SCRIPT="/root/workspace/build-scripts/" \
   DOCKER_GODOT_SOURCE="/root/workspace/godot/" \
+  DOCKER_GODOT_VERSION="3.0.2" \
   DOCKER_GODOT_EXPORT_TEMPLATES="/root/workspace/godot/templates/" \
   DOCKER_GODOT_GAME_SOURCE="/root/workspace/game/" \
   DOCKER_GODOT_EXPORT_GAME="/root/workspace/exports/" \
@@ -53,7 +54,7 @@ ENV EMSCRIPTEN_ROOT="${DOCKER_GODOT_EMSCRIPTEN}"
 RUN ${DOCKER_BUILD_SCRIPT}build-download-stable.sh
 
 # compile server version for later exports and runs
-RUN ${DOCKER_BUILD_SCRIPT}build-godot.sh
+RUN ${DOCKER_BUILD_SCRIPT}build-godot.sh server
 
 # run shell
 CMD ["/bin/bash"]

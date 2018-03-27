@@ -9,22 +9,21 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
 fi
 
 cd "$DOCKER_GODOT_EXPORT_TEMPLATES"
-wget --quiet https://downloads.tuxfamily.org/godotengine/3.0/Godot_v3.0-stable_export_templates.tpz
-mv Godot_v3.0-stable_export_templates.tpz Godot_v3.0-stable_export_templates.zip
-unzip Godot_v3.0-stable_export_templates.zip
+wget --quiet https://downloads.tuxfamily.org/godotengine/${DOCKER_GODOT_VERSION}/Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.tpz
+mv Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.tpz Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
+unzip Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
 mv templates/* .
 rmdir templates
 # link to home directory
 mkdir -p ~/.godot
 ln -s ~/workspace/godot/templates ~/.godot/templates
 # remove download
-rm -f Godot_v3.0-stable_export_templates.zip
+rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
 # create cache and config directories
 # see https://github.com/godotengine/godot/issues/16779
 mkdir -p ~/.local/share
 mkdir -p ~/.config
 mkdir -p ~/.cache
-
 
 echo "** Download and unzip complete!"
 
