@@ -11,22 +11,22 @@ Use this docker image script to create a working build environment for **Godot v
 At the moment it is possible to:
 - compile godot v3 from source
 -- for platforms: headless linux server, X11, windows, javascript
-- export your godot game for those plattforms
+- export your godot game for those plattforms **NOPE**
 - run your game from headless godot server within the docker container
 
 What is not possible right now:
 - export to Android
-- immediately understand how it works by repeatingly reading this help file
+- immediately understand how it works by reading this help file
 
 What will never be possible:
 - compile to OSX
 - export to any other Apple thing
-- immediately understand how it works by repeatingly reading this help file
+- actually understand how it works by repeatingly reading this help file
 
 
 ## Docker basis
 
-Docker image is based on ubuntu:latest. It installs all packets used for [building and exporting godot binaries](http://docs.godotengine.org/en/3.0/development/compiling/compiling_for_x11.html). 
+Docker image is based on ubuntu:bionic. It installs all packets used for [building and exporting godot binaries](http://docs.godotengine.org/en/3.0/development/compiling/compiling_for_x11.html). 
 
 ## Godot basis
 
@@ -40,9 +40,9 @@ There are several shell scripts available.
 - `build-run-docker.sh [portnumber]` .. run your created docker image and create a container.
 - `build-download-stable.sh` .. downloads latest godot export templates - _is called during build process_.
 - `build-emscripten.sh` .. installs and setup emscrip in the docker image - _is called during build process_.
-- `build-godot.sh [all]` .. builds the godot headless server binary - _is called during build process (takes a looong time)_.
+- `build-godot.sh [all|server|javascript|linux|windows]` .. builds the godot binary - _is called during docker init process (takes a looong time)_.
 - `build-game.sh <game-name>` .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
-- `build-run-game.sh <path-to-server.tscn>` .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
+- `build-run-game.sh <path-to-server.tscn>` .. runs a scene on the headless server within your game directory - _can be executed on running docker container_.
 
 ## Examples
 Run command to temporary build container and run your godot game within a headless server:
