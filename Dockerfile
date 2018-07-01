@@ -28,11 +28,11 @@ ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_GODOT_SOURCE="/root/workspace/godot/" \
   DOCKER_GODOT_VERSION="3.0.4" \
   DOCKER_GODOT_EXPORT_TEMPLATES="/root/workspace/godot/templates/" \
-  DOCKER_GODOT_EDITOR="/root/workspace/godot/editor/" \
+  DOCKER_GODOT_EDITOR="/root/workspace/editor/" \
   DOCKER_GODOT_GAME_SOURCE="/root/workspace/game/" \
   DOCKER_GODOT_EXPORT_GAME="/root/workspace/exports/" \
   DOCKER_GODOT_EMSCRIPTEN="/root/workspace/emscripten/" \
-  DOCKER_GODOT_SERVER_BINARY="/root/workspace/godot/templates/linux_server_64_tools" \
+  DOCKER_GODOT_SERVER_BINARY="/root/workspace/godot/templates/linux_server" \
   DOCKER_TAG_NAME="docker-godot-3-build-and-run:latest" \
   EMSCRIPTEN_ROOT="/root/workspace/emscripten/" \
   GODOT_HOME="~/.godot" \
@@ -66,9 +66,8 @@ COPY *.sh $DOCKER_BUILD_SCRIPT
 # compile server version for later exports and runs
 RUN chmod +x ${DOCKER_BUILD_SCRIPT}*.sh && \
   git clone -b master --single-branch https://github.com/godotengine/godot.git $DOCKER_GODOT_SOURCE && \
-  ${DOCKER_BUILD_SCRIPT}download-godot-templates.sh && \
-  ${DOCKER_BUILD_SCRIPT}install-emscripten.sh && \
-  ${DOCKER_BUILD_SCRIPT}build-godot-editor.sh server
+  ${DOCKER_BUILD_SCRIPT}download-godot.sh all && \
+  ${DOCKER_BUILD_SCRIPT}install-emscripten.sh
 
 # run shell
 CMD ["/bin/bash"]
