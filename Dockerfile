@@ -57,7 +57,7 @@ RUN mkdir -p "$DOCKER_WORKING_DIR" \
 WORKDIR $DOCKER_WORKING_DIR
 
 # copy our build scripts into the directory
-COPY build-*.sh $DOCKER_BUILD_SCRIPT
+COPY *.sh $DOCKER_BUILD_SCRIPT
 
 # get godot source
 # make them executable
