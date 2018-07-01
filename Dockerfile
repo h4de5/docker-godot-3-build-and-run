@@ -60,14 +60,15 @@ WORKDIR $DOCKER_WORKING_DIR
 COPY *.sh $DOCKER_BUILD_SCRIPT
 
 # get godot source
+RUN git clone -b master --single-branch https://github.com/godotengine/godot.git $DOCKER_GODOT_SOURCE
+
 # make them executable
 # download stable export templates
-# install emscripten
-# compile server version for later exports and runs
 RUN chmod +x ${DOCKER_BUILD_SCRIPT}*.sh && \
-  git clone -b master --single-branch https://github.com/godotengine/godot.git $DOCKER_GODOT_SOURCE && \
-  ${DOCKER_BUILD_SCRIPT}download-godot.sh all && \
-  ${DOCKER_BUILD_SCRIPT}install-emscripten.sh
+  ${DOCKER_BUILD_SCRIPT}download-godot.sh all
+
+# install emscripten
+RUN ${DOCKER_BUILD_SCRIPT}install-emscripten.sh
 
 # run shell
 CMD ["/bin/bash"]
