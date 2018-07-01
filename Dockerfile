@@ -12,9 +12,10 @@ EXPOSE $serverport
 
 # fetch updates and packetlist
 # install build environment and additionals
+# skip upgrade and autoremove for now
+# apt-get --yes upgrade && \ 
+# apt-get --yes autoremove && \
 RUN apt-get --yes update && \
-  apt-get --yes upgrade && \ 
-  apt-get --yes autoremove && \
   apt-get --yes install \
     build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev \
 	  libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev \
@@ -43,7 +44,6 @@ ENV DOCKER_WORKING_DIR="/root/workspace/" \
 # create some directories for later use
 RUN mkdir -p "$DOCKER_WORKING_DIR" \
     "$DOCKER_BUILD_SCRIPT" \
-    "$DOCKER_GODOT_SOURCE" \
     "$DOCKER_GODOT_EXPORT_TEMPLATES" \
     "$DOCKER_GODOT_EDITOR" \
     "$DOCKER_GODOT_GAME_SOURCE" \
@@ -59,16 +59,14 @@ WORKDIR $DOCKER_WORKING_DIR
 # copy our build scripts into the directory
 COPY *.sh $DOCKER_BUILD_SCRIPT
 
+# make scripts executable
 # get godot source
-RUN git clone -b master --single-branch https://github.com/godotengine/godot.git $DOCKER_GODOT_SOURCE
-
-# make them executable
 # download stable export templates
-RUN chmod +x ${DOCKER_BUILD_SCRIPT}*.sh && \
-  ${DOCKER_BUILD_SCRIPT}download-godot.sh all
-
 # install emscripten
-RUN ${DOCKER_BUILD_SCRIPT}install-emscripten.sh
+RUN chmod +x ${DOCKER_BUILD_SCRIPT}*.sh && \
+  git clone -b master --single-branch https://github.com/godotengine/godot.git $DOCKER_GODOT_SOURCE && \
+  ${DOCKER_BUILD_SCRIPT}download-godot.sh all && \ 
+  ${DOCKER_BUILD_SCRIPT}install-emscripten.sh
 
 # run shell
 CMD ["/bin/bash"]
