@@ -46,12 +46,12 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
   rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_win64.exe.zip
 
   wget --quiet https://downloads.tuxfamily.org/godotengine/${DOCKER_GODOT_VERSION}/Godot_v${DOCKER_GODOT_VERSION}-stable_x11.64.zip
-  unzip Godot_v${DOCKER_GODOT_VERSION}-stable_x11.exe.zip
-  rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_x11.exe.zip
+  unzip Godot_v${DOCKER_GODOT_VERSION}-stable_x11.64.zip
+  rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_x11.64.zip
 
   wget --quiet https://downloads.tuxfamily.org/godotengine/${DOCKER_GODOT_VERSION}/Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.64.zip
-  unzip Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.exe.zip
-  rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.exe.zip
+  unzip Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.64.zip
+  rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.64.zip
 
   # let server point to download binary
   rm -f $DOCKER_GODOT_EDITOR/linux_server
