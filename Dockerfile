@@ -7,6 +7,7 @@ LABEL maintainer="h4de5@users.noreply.github.com" \
 
 # a serverport can be given at build time
 ARG serverport=8910
+ARG godotversion=3.0.4
 # which will be exposed
 EXPOSE $serverport
 
@@ -27,24 +28,23 @@ RUN apt-get --yes update && \
 ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_BUILD_SCRIPT="/root/workspace/build-scripts/" \
   DOCKER_GODOT_SOURCE="/root/workspace/godot/" \
-  DOCKER_GODOT_VERSION="3.0.4" \
+  DOCKER_GODOT_VERSION="$godotversion" \
   DOCKER_GODOT_EXPORT_TEMPLATES="/root/workspace/godot/templates/" \
   DOCKER_GODOT_EDITOR="/root/workspace/editor/" \
   DOCKER_GODOT_GAME_SOURCE="/root/workspace/game/" \
   DOCKER_GODOT_EXPORT_GAME="/root/workspace/exports/" \
   DOCKER_GODOT_EMSCRIPTEN="/root/workspace/emscripten/" \
-  DOCKER_GODOT_SERVER_BINARY="/root/workspace/godot/templates/linux_server" \
+  DOCKER_GODOT_SERVER_BINARY="/root/workspace/editor/linux_server" \
   DOCKER_TAG_NAME="docker-godot-3-build-and-run:latest" \
   EMSCRIPTEN_ROOT="/root/workspace/emscripten/" \
-  GODOT_HOME="~/.godot" \
-  XDG_CACHE_HOME="~/.cache" \
-  XDG_DATA_HOME="~/.local/share" \
-  XDG_CONFIG_HOME="~/.config"
+  GODOT_HOME="~/.godot/" \
+  XDG_CACHE_HOME="~/.cache/" \
+  XDG_DATA_HOME="~/.local/share/" \
+  XDG_CONFIG_HOME="~/.config/"
 
 # create some directories for later use
 RUN mkdir -p "$DOCKER_WORKING_DIR" \
     "$DOCKER_BUILD_SCRIPT" \
-    "$DOCKER_GODOT_EXPORT_TEMPLATES" \
     "$DOCKER_GODOT_EDITOR" \
     "$DOCKER_GODOT_GAME_SOURCE" \
     "$DOCKER_GODOT_EXPORT_GAME" \

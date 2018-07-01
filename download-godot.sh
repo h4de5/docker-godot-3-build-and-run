@@ -25,13 +25,23 @@ if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
     rmdir templates
     rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
 
+    # I have no idea where to put the export templates, thats why i put them everywhere..
+    # see: https://github.com/godotengine/godot/issues/18257
+    # see: https://github.com/godotengine/godot/issues/16949
+    # see: https://github.com/godotengine/godot/issues/19683
+    # and: https://www.reddit.com/r/godot/comments/8u9dag/can_godot_server_export_games/
     # link to home directory
     mkdir -p ~/.godot
+    rm -rf ~/.godot/templates
     ln -s ~/workspace/godot/templates ~/.godot/templates
+
+    # link to .local/share
+    mkdir -p ~/.local/share/godot
+    rm -rf ~/.local/share/godot/templates
+    ln -s ~/workspace/godot/templates ~/.local/share/godot/templates
 
     # create cache and config directories
     # see https://github.com/godotengine/godot/issues/16779
-    mkdir -p ~/.local/share
     mkdir -p ~/.config
     mkdir -p ~/.cache
 
@@ -55,7 +65,7 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 
   # let server point to download binary
   rm -f $DOCKER_GODOT_EDITOR/linux_server
-  ln -s $DOCKER_GODOT_EDITOR/Godot_v3.0.4-stable_linux_server.64 linux_server
+  ln -s $DOCKER_GODOT_EDITOR/Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.64 linux_server
 
 fi
 

@@ -2,9 +2,9 @@
 
 **This is work in progress!**
 
-**UPDATE: 2018-02-27 - I just found out, that it is not possible to export a game using the headless server plattform due to the lack of a GPU or any GPU access on such a server. That's why i decided to postpone any further developement of this docker image until this is made available. This docker image can still be used to build and run the headless server - as well as, with small modifications of the build-godot.sh file, build the godot editor from the latest source for windows and linux.**
-
 **UPDATE: 2018-07-01 - There is a precompiled server binary now. I am updating this docker repository to use the latest binaries: godot v3.0.4**
+
+**UPDATE: 2018-02-27 - I just found out, that it is not possible to export a game using the headless server plattform due to the lack of a GPU or any GPU access on such a server. That's why i decided to postpone any further developement of this docker image until this is made available. This docker image can still be used to build and run the headless server - as well as, with small modifications of the build-godot.sh file, build the godot editor from the latest source for windows and linux.**
 
 Also this is my first steps in docker - feel free to submit changes :) 
 
@@ -13,7 +13,7 @@ Use this docker image script to create a working build environment for **Godot v
 At the moment it is possible to:
 - compile godot v3 from source
 -- for platforms: headless linux server, X11, windows, javascript
-- export your godot game for those plattforms **NOPE**
+- export your godot game for those plattforms **NOT NOW**
 - run your game from headless godot server within the docker container
 
 What is not possible right now:
@@ -38,7 +38,7 @@ The Image will clone the [godot source](https://github.com/godotengine/godot) an
 There are several shell scripts available. 
 
 Run from outside:
-- `build-docker.sh	[--build-arg serverport=8910]` .. starting point for creating the docker image.
+- `build-docker.sh	[--build-arg serverport=8910 godotversion=3.0.4]` .. starting point for creating the docker image.
 - `run-docker.sh [portnumber]` .. run your created docker image and create a container.
 
 Runs during build process:
