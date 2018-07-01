@@ -13,12 +13,15 @@ wget --quiet https://downloads.tuxfamily.org/godotengine/${DOCKER_GODOT_VERSION}
 mv Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.tpz Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
 unzip Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
 mv templates/* .
+
+# cleanup
 rmdir templates
+rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
+
 # link to home directory
 mkdir -p ~/.godot
 ln -s ~/workspace/godot/templates ~/.godot/templates
-# remove download
-rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_export_templates.zip
+
 # create cache and config directories
 # see https://github.com/godotengine/godot/issues/16779
 mkdir -p ~/.local/share

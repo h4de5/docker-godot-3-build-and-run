@@ -36,23 +36,50 @@ The Image will clone the [godot source](https://github.com/godotengine/godot) an
 
 There are several shell scripts available. 
 
-- `build-docker.sh`	[--build-arg serverport=8910]` .. starting point for creating the docker image.
-- `build-run-docker.sh [portnumber]` .. run your created docker image and create a container.
-- `build-download-stable.sh` .. downloads latest godot export templates - _is called during build process_.
-- `build-emscripten.sh` .. installs and setup emscrip in the docker image - _is called during build process_.
-- `build-godot.sh [all|server|javascript|linux|windows]` .. builds the godot binary - _is called during docker init process (takes a looong time)_.
-- `build-game.sh <game-name>` .. builds binaries for your mounted godot game directory - _can be executed on running docker container_.
-- `build-run-game.sh <path-to-server.tscn>` .. runs a scene on the headless server within your game directory - _can be executed on running docker container_.
+Run from outside:
+- `build-docker.sh	[--build-arg serverport=8910]` .. starting point for creating the docker image.
+- `run-docker.sh [portnumber]` .. run your created docker image and create a container.
+
+Runs during build process:
+- `download-godot-templates.sh` .. downloads latest godot export templates
+- `install-emscripten.sh` .. installs and setup emscrip in the docker image
+
+Run on active container (docker run ..):
+- `build-godot-editor.sh [all|server|linux|windows]` .. builds the godot editor binary - _is also called during docker build process (takes a looong time)_.
+- `build-godot-templates.sh [all|javascript|linux|windows]` .. builds the godot export templates
+- `export-game.sh <game-name>` .. exports binaries for your mounted godot game directory
+- `run-game.sh <path-to-server-scene.tscn>` .. runs a scene on the headless server within your game directory
+
+## Docker Lifecycle und Cheatsheet (cause I still need this)
+
+*Dockerfile* > build > *Image* > run > *Container*
+
+- `docker ps` .. lists running containers
+- `docker build --tag <image>` .. builds an image from dockerfile
+- `docker run -d <image>` .. runs container in background
+- `docker run -it <image> bash` .. runs interactive container
+- `docker run -rm <image> bash` .. removes container on stop
+- `docker run -name <container> <image>` .. starts a named container
+- `docker stop <container>` .. stops a named container
+- `docker start <container>` .. restarts a named container
+- `docker exec -it <container> bash` .. connect to a container
 
 ## Examples
 Run command to temporary build container and run your godot game within a headless server:
 
-> docker run --rm -it -p 8910 -v `pwd`:/root/workspace/game/ h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/build-run-game.sh <path-to-server.tscn>
+> docker run --rm -it -p 8910 -v `pwd`:/root/workspace/game/ h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/build-run-game.sh <path-to-server-scene.tscn>
 
-Run command to export your game to windows/linux/javascript - binaries will be placed in /bin/ directory:
+Run command to temporary build container and export your game to windows/linux/javascript - binaries will be placed in /bin/ directory:
 
-> docker run --rm -it -v `pwd`:/root/workspace/game/ h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/build-game.sh <name-your-game>
+> docker run --rm -it -v `pwd`:/root/workspace/game/ h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/export-game.sh <name-your-game>
 
+If you want to have a permanent container file:
+
+> docker run -it -v `pwd`:/root/workspace/game/ h4de5/docker-godot-3-build-and-run:latest bash
+
+Reconnect to an permanent container file
+
+> docker exec -it docker-godot-3-build-and-run-perm bash
 
 For more information please see help (-h) for each script. 
 

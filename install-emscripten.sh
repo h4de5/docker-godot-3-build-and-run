@@ -1,7 +1,11 @@
 #!/bin/bash
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
+  echo "This will be executed during docker install."
   echo "Install emscripten in order to export to javascript: "
+  echo "  docker exec -d $DOCKER_TAG_NAME $DOCKER_BUILD_SCRIPT/${0}"
+  echo "After the download is complete, save the current state:"
+  echo "  docker commit <container-id> $DOCKER_TAG_NAME"
   exit 0
 fi
 
@@ -11,7 +15,9 @@ echo "* Download emscripten"
 wget -O ${DOCKER_WORKING_DIR}emsdk-portable.tar.gz https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz
 tar -xzf emsdk-portable.tar.gz -C $DOCKER_GODOT_EMSCRIPTEN
 mv ${DOCKER_GODOT_EMSCRIPTEN}/emsdk-portable/* ${DOCKER_GODOT_EMSCRIPTEN}
-rm -f ${DOCKER_WORKING_DIR}emsdk-portable.tar.gz ; rmdir ${DOCKER_GODOT_EMSCRIPTEN}/emsdk-portable
+# cleanup
+rm -f ${DOCKER_WORKING_DIR}emsdk-portable.tar.gz
+rmdir ${DOCKER_GODOT_EMSCRIPTEN}/emsdk-portable
 
 echo "* Setup emscripten"
 
