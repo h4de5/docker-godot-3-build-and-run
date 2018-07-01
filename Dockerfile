@@ -36,9 +36,9 @@ ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_TAG_NAME="docker-godot-3-build-and-run:latest" \
   EMSCRIPTEN_ROOT="/root/workspace/emscripten/" \
   GODOT_HOME="~/.godot" \
-  XDG_CACHE_HOME "~/.cache" \
-  XDG_DATA_HOME "~/.local/share" \
-  XDG_CONFIG_HOME "~/.config"
+  XDG_CACHE_HOME="~/.cache" \
+  XDG_DATA_HOME="~/.local/share" \
+  XDG_CONFIG_HOME="~/.config"
 
 # create some directories for later use
 RUN mkdir -p "$DOCKER_WORKING_DIR" \
