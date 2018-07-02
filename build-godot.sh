@@ -42,16 +42,22 @@ update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++
 
 if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
 
+~/.local/share/godot/templates/3.1.dev/
+$DOCKER_GODOT_EXPORT_TEMPLATES
+
+	# creates version specific export template folder - for master branch
+    mkdir -p "${DOCKER_GODOT_EXPORT_TEMPLATES}/3.1.dev/"
+
 	if [ "$2" == "linux" ] || [ "$2" == "all" ]; then
 		
 		echo "* Building godot for Linux X11"
 		scons -j $CORE_COUNT p=x11 target=release tools=no bits=64
 		upx bin/godot.x11.opt.64
-		mv bin/godot.x11.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_x11_64_release
+		mv bin/godot.x11.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/3.1.dev/linux_x11_64_release
 		
 		scons -j $CORE_COUNT p=x11 target=release_debug tools=no bits=64
 		upx bin/godot.x11.opt.debug.64
-		mv bin/godot.x11.opt.debug.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_x11_64_debug
+		mv bin/godot.x11.opt.debug.64 $DOCKER_GODOT_EXPORT_TEMPLATES/3.1.dev/linux_x11_64_debug
 	
 	fi
 	if [ "$2" == "windows" ] || [ "$2" == "all" ]; then
@@ -59,21 +65,21 @@ if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
 		echo "* Building godot for Windows"
 		scons -j $CORE_COUNT p=windows target=release tools=no bits=64
 		x86_64-w64-mingw32-strip bin/godot.windows.opt.64.exe
-		mv bin/godot.windows.opt.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/windows_64_release.exe
+		mv bin/godot.windows.opt.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/3.1.dev/windows_64_release.exe
 
 		scons -j $CORE_COUNT p=windows target=release_debug tools=no bits=64
 		x86_64-w64-mingw32-strip bin/godot.windows.opt.debug.64.exe
-		mv bin/godot.windows.opt.debug.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/windows_64_debug.exe
+		mv bin/godot.windows.opt.debug.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/3.1.dev/windows_64_debug.exe
 	
 	fi
 	if [ "$2" == "javascript" ] || [ "$2" == "all" ]; then
 
 		echo "* Building godot for Javascript"
 		scons -j $CORE_COUNT p=javascript target=release
-		mv bin/godot.javascript.opt.zip $DOCKER_GODOT_EXPORT_TEMPLATES/webassembly_release.zip
+		mv bin/godot.javascript.opt.zip $DOCKER_GODOT_EXPORT_TEMPLATES/3.1.dev/webassembly_release.zip
 
 		scons -j $CORE_COUNT p=javascript target=release_debug
-		mv bin/godot.javascript.opt.debug.zip $DOCKER_GODOT_EXPORT_TEMPLATES/webassembly_debug.zip
+		mv bin/godot.javascript.opt.debug.zip $DOCKER_GODOT_EXPORT_TEMPLATES/3.1.dev/webassembly_debug.zip
 
 	fi
 
@@ -91,7 +97,7 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 
 		# let server point to compiled binary
 		rm -f $DOCKER_GODOT_EDITOR/linux_server
-		ln -s $DOCKER_GODOT_EDITOR/linux_server_64_tools linux_server
+		ln -s $DOCKER_GODOT_EDITOR/linux_server_64_tools $DOCKER_GODOT_EDITOR/linux_server
 
 	#   scons -j $CORE_COUNT p=server target=release tools=false bits=64
 	#   cp bin/godot_server.server.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64
