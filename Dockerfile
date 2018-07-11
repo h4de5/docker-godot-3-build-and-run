@@ -7,7 +7,7 @@ LABEL maintainer="h4de5@users.noreply.github.com" \
 
 # a serverport can be given at build time
 ARG serverport=8910
-ARG godotversion=3.0.4
+ARG godotversion=3.0.5
 # which will be exposed
 EXPOSE $serverport
 
