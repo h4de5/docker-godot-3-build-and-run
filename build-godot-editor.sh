@@ -2,7 +2,7 @@
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
   echo "To compile the godot editor from current master: "
-  echo "  docker exec -d h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/${0}" [server|windows|linux|all]
+  echo "  docker exec -d h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/${0} [server|windows|linux|all]"
   echo "use with parameter 'all' to build godot editor for X11 and windows"
   exit 0
 fi
