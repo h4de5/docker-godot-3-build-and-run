@@ -2,12 +2,12 @@
 FROM debian:stable-slim
 
 LABEL maintainer="h4de5@users.noreply.github.com" \
-  version="3.0.4" \
-  description="Docker image to create a godot v3.0.4 build environment, export your game as binary and run your game as headless server. use --build-arg serverport=<port> to select an open port."
+  version="3.0.6" \
+  description="Docker image to create a godot v3.0.6 build environment, export your game as binary and run your game as headless server. use --build-arg serverport=<port> to select an open port."
 
 # a serverport can be given at build time
 ARG serverport=8910
-ARG godotversion=3.0.5
+ARG godotversion=3.0.6
 # which will be exposed
 EXPOSE $serverport
 
@@ -69,7 +69,7 @@ RUN chmod +x ${DOCKER_BUILD_SCRIPT}*.sh && \
   ${DOCKER_BUILD_SCRIPT}install-emscripten.sh
 
 # run shell
-CMD ["/bin/bash"]
+ENTRYPOINT ["/bin/bash"]
 
 # run godot build
 # CMD ["/root/workspace/build-scripts/build-godot.sh"]
