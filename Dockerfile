@@ -14,15 +14,14 @@ EXPOSE $serverport
 # fetch updates and packetlist
 # install build environment and additionals
 # skip upgrade and autoremove for now
-# apt-get --yes upgrade && \ 
-# apt-get --yes autoremove && \
 RUN apt-get --yes update && \
+  apt-get --yes upgrade && \
+  apt-get --yes autoremove && \
   apt-get --yes install \
     build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev \
 	  libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev \
 	  libxi-dev libxrandr-dev mingw-w64 \
 	  git unzip upx vim wget ca-certificates
-
 
 # setting up build environment
 ENV DOCKER_WORKING_DIR="/root/workspace/" \
@@ -35,6 +34,7 @@ ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_GODOT_EXPORT_GAME="/root/workspace/exports/" \
   DOCKER_GODOT_EMSCRIPTEN="/root/workspace/emscripten/" \
   DOCKER_GODOT_SERVER_BINARY="/root/workspace/editor/linux_server" \
+  DOCKER_GODOT_EXPORT_PREFIX="3.1.alpha"
   DOCKER_TAG_NAME="docker-godot-3-build-and-run:latest" \
   EMSCRIPTEN_ROOT="/root/workspace/emscripten/" \
   GODOT_HOME="~/.godot/" \

@@ -2,7 +2,7 @@
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
   echo "To download the latest godot export templates:"
-  echo "  docker exec -d h4de5/docker-godot-3-build-and-run:latest /root/workspace/build-scripts/${0} [editor|templates|all]"
+  echo "  docker exec -d docker-godot-3-build-and-run /root/workspace/build-scripts/${0} [editor|templates|all]"
   echo "After the download is complete, save the current state:"
   echo "  docker commit <container-id> $DOCKER_TAG_NAME"
   exit 0
@@ -63,7 +63,7 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
   unzip Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.64.zip
   rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.64.zip
 
-  https://downloads.tuxfamily.org/godotengine/${DOCKER_GODOT_VERSION}/Godot_v${DOCKER_GODOT_VERSION}-stable_linux_headless.64.zip
+  wget --quiet https://downloads.tuxfamily.org/godotengine/${DOCKER_GODOT_VERSION}/Godot_v${DOCKER_GODOT_VERSION}-stable_linux_headless.64.zip
   unzip Godot_v${DOCKER_GODOT_VERSION}-stable_linux_headless.64.zip
   rm -f Godot_v${DOCKER_GODOT_VERSION}-stable_linux_headless.64.zip
 
