@@ -3,13 +3,22 @@ FROM debian:stable-slim
 
 LABEL maintainer="h4de5@users.noreply.github.com" \
   version="3.0.6" \
-  description="Docker image to create a godot v3.0.6 build environment, export your game as binary and run your game as headless server. use --build-arg serverport=<port> to select an open port."
+  description="Docker image to create a godot v3.0.6 build environment, export your game as binary and run your game as headless server."
 
-# a serverport can be given at build time
-ARG serverport=8910
-ARG godotversion=3.0.6
 # which will be exposed
-EXPOSE $serverport
+EXPOSE 8910
+
+# game sources should be linked here
+VOLUME /root/workspace/game/
+
+# editor builds will be placed here
+VOLUME /root/workspace/editor/
+
+# game exports will be placed here
+VOLUME /root/workspace/exports/
+
+# godot export templates will be placed here
+VOLUME /root/workspace/godot/templates/
 
 # fetch updates and packetlist
 # install build environment and additionals
@@ -27,7 +36,7 @@ RUN apt-get --yes update && \
 ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_BUILD_SCRIPT="/root/workspace/build-scripts/" \
   DOCKER_GODOT_SOURCE="/root/workspace/godot/" \
-  DOCKER_GODOT_VERSION="$godotversion" \
+  DOCKER_GODOT_VERSION="3.0.6" \
   DOCKER_GODOT_EXPORT_TEMPLATES="/root/workspace/godot/templates/" \
   DOCKER_GODOT_EDITOR="/root/workspace/editor/" \
   DOCKER_GODOT_GAME_SOURCE="/root/workspace/game/" \
@@ -40,7 +49,8 @@ ENV DOCKER_WORKING_DIR="/root/workspace/" \
   GODOT_HOME="~/.godot/" \
   XDG_CACHE_HOME="~/.cache/" \
   XDG_DATA_HOME="~/.local/share/" \
-  XDG_CONFIG_HOME="~/.config/"
+  XDG_CONFIG_HOME="~/.config/" \
+  GAME_PORT=8910
 
 # create some directories for later use
 RUN mkdir -p "$DOCKER_WORKING_DIR" \

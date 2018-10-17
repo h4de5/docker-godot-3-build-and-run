@@ -22,9 +22,9 @@ echo "* Exporting for linux to: $DOCKER_GODOT_EXPORT_GAME/linux/"
 mkdir -p "$DOCKER_GODOT_EXPORT_GAME/linux/"
 $DOCKER_GODOT_SERVER_BINARY --export "Linux/X11" -path "$DOCKER_GODOT_EXPORT_GAME/linux/${1}"
 
-echo "* Moving exported binaries to source directory:"
-mkdir -p "$SOURCE_PATH/bin"
-mv $DOCKER_GODOT_EXPORT_GAME/* "${DOCKER_GODOT_GAME_SOURCE}bin/"
+# echo "* Moving exported binaries to source directory:"
+# mkdir -p "$SOURCE_PATH/bin"
+# mv $DOCKER_GODOT_EXPORT_GAME/* "${DOCKER_GODOT_GAME_SOURCE}bin/"
 
 echo "** Exporting game complete!"
-echo "Game binaries in: ${DOCKER_GODOT_GAME_SOURCE}bin"
+echo "Game binaries in: ${$DOCKER_GODOT_EXPORT_GAME}"

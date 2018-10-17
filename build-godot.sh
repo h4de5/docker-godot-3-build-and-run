@@ -83,6 +83,7 @@ $DOCKER_GODOT_EXPORT_TEMPLATES
 
 	fi
 
+	echo "Export templates in: $DOCKER_GODOT_EXPORT_TEMPLATES"
 fi
 
 if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
@@ -93,7 +94,7 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 		scons -j $CORE_COUNT p=server target=release_debug tools=yes bits=64
 		upx bin/godot_server.server.opt.tools.64
 		mv bin/godot_server.server.opt.tools.64 $DOCKER_GODOT_EDITOR/linux_server_64_tools
-		cp $DOCKER_GODOT_EDITOR/linux_server_64_tools $DOCKER_GODOT_GAME_SOURCE/bin/
+		#cp $DOCKER_GODOT_EDITOR/linux_server_64_tools $DOCKER_GODOT_GAME_SOURCE/bin/
 
 		# let server point to compiled binary
 		rm -f $DOCKER_GODOT_EDITOR/linux_server
@@ -119,7 +120,7 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 		scons -j $CORE_COUNT p=x11 target=release_debug tools=yes bits=64
 		upx bin/godot.x11.opt.tools.64
 		mv bin/godot.x11.opt.tools.64 $DOCKER_GODOT_EDITOR/linux_x11_64_tools
-		cp $DOCKER_GODOT_EDITOR/linux_x11_64_tools $DOCKER_GODOT_GAME_SOURCE/bin/
+		#cp $DOCKER_GODOT_EDITOR/linux_x11_64_tools $DOCKER_GODOT_GAME_SOURCE/bin/
 	
 	fi
 	if [ "$2" == "windows" ] || [ "$2" == "all" ]; then
@@ -128,11 +129,11 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 		scons -j $CORE_COUNT p=windows target=release_debug tools=yes bits=64
 		x86_64-w64-mingw32-strip bin/godot.windows.opt.tools.64.exe
 		mv bin/godot.windows.opt.tools.64.exe $DOCKER_GODOT_EDITOR/windows_64_tools.exe
-		cp $DOCKER_GODOT_EDITOR/windows_64_tools.exe $DOCKER_GODOT_GAME_SOURCE/bin/
+		#cp $DOCKER_GODOT_EDITOR/windows_64_tools.exe $DOCKER_GODOT_GAME_SOURCE/bin/
 	
 	fi
+
+	echo "Editor in: $DOCKER_GODOT_EDITOR"
 fi
 
 echo "** Building godot complete!"
-echo "Export templates in: $DOCKER_GODOT_EXPORT_TEMPLATES"
-echo "Editor in: $DOCKER_GODOT_EDITOR"
