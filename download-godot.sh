@@ -33,12 +33,12 @@ if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
     # link to home directory
     mkdir -p ~/.godot
     rm -rf ~/.godot/templates
-    ln -s ~/workspace/godot/templates ~/.godot/templates
+    ln -s ${DOCKER_GODOT_EXPORT_TEMPLATES} ~/.godot/templates
 
     # link to .local/share
     mkdir -p ~/.local/share/godot
     rm -rf ~/.local/share/godot/templates
-    ln -s ~/workspace/godot/templates ~/.local/share/godot/templates
+    ln -s ${DOCKER_GODOT_EXPORT_TEMPLATES} ~/.local/share/godot/templates
 
     # create cache and config directories
     # see https://github.com/godotengine/godot/issues/16779

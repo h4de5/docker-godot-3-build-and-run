@@ -18,7 +18,7 @@ VOLUME /root/workspace/editor/
 VOLUME /root/workspace/exports/
 
 # godot export templates will be placed here
-VOLUME /root/workspace/godot/templates/
+VOLUME /root/workspace/templates/
 
 # fetch updates and packetlist
 # install build environment and additionals
@@ -37,7 +37,7 @@ ENV DOCKER_WORKING_DIR="/root/workspace/" \
   DOCKER_BUILD_SCRIPT="/root/workspace/build-scripts/" \
   DOCKER_GODOT_SOURCE="/root/workspace/godot/" \
   DOCKER_GODOT_VERSION="3.0.6" \
-  DOCKER_GODOT_EXPORT_TEMPLATES="/root/workspace/godot/templates/" \
+  DOCKER_GODOT_EXPORT_TEMPLATES="/root/workspace/templates/" \
   DOCKER_GODOT_EDITOR="/root/workspace/editor/" \
   DOCKER_GODOT_GAME_SOURCE="/root/workspace/game/" \
   DOCKER_GODOT_EXPORT_GAME="/root/workspace/exports/" \
