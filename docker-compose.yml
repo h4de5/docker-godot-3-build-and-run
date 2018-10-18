@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   run-game:
-    container_name: godot-run-game
+    container_name: godot-container
     image: h4de5/docker-godot-3-build-and-run
     restart: unless-stopped
     ports:
@@ -20,7 +20,7 @@ services:
       - GAME_NAME
 
   export-game:
-    container_name: godot-export-game
+    container_name: godot-container
     image: h4de5/docker-godot-3-build-and-run
     # ports:
     #   - ${GAME_PORT}:${GAME_PORT}
@@ -37,7 +37,7 @@ services:
       # - GAME_PORT
 
   build-templates:
-    container_name: godot-build-templates
+    container_name: godot-container
     image: h4de5/docker-godot-3-build-and-run
     # ports:
     #   - ${GAME_PORT}:${GAME_PORT}
@@ -54,7 +54,7 @@ services:
       # - GAME_PORT
 
   build-editor:
-    container_name: godot-build-editor
+    container_name: godot-container
     image: h4de5/docker-godot-3-build-and-run
     # ports:
     #   - ${GAME_PORT}:${GAME_PORT}
