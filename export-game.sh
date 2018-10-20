@@ -8,6 +8,9 @@ if [ "$#" == 0 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
   exit 0
 fi
 
+# create project directory
+mkdir -p ~/.config/godot/projects
+
 cd "$DOCKER_GODOT_GAME_SOURCE"
 echo "* Exporting for windows to: $DOCKER_GODOT_EXPORT_GAME/win/"
 mkdir -p "$DOCKER_GODOT_EXPORT_GAME/win/"
@@ -27,4 +30,4 @@ $DOCKER_GODOT_SERVER_BINARY --export "Linux/X11" -path "$DOCKER_GODOT_EXPORT_GAM
 # mv $DOCKER_GODOT_EXPORT_GAME/* "${DOCKER_GODOT_GAME_SOURCE}bin/"
 
 echo "** Exporting game complete!"
-echo "Game binaries in: ${$DOCKER_GODOT_EXPORT_GAME}"
+echo "Game binaries in: ${DOCKER_GODOT_EXPORT_GAME}"

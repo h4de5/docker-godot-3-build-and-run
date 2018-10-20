@@ -53,6 +53,23 @@ services:
       # - GAME_NAME
       # - GAME_PORT
 
+  build-server:
+    container_name: godot-build-editor
+    image: h4de5/docker-godot-3-build-and-run
+    # ports:
+    #   - ${GAME_PORT}:${GAME_PORT}
+    command: /root/workspace/build-scripts/build-godot.sh editor server
+    volumes:
+      # - ${PATH_GAME_SOURCE}:/root/workspace/game/
+      - ${PATH_GODOT_EDITOR}:/root/workspace/editor/
+      # - ${PATH_GAME_EXPORTS}:/root/workspace/exports/
+      # - ${PATH_GODOT_TEMPLATES}:/root/workspace/templates/
+    environment:
+      - DOCKER_GODOT_VERSION
+      - DOCKER_GODOT_EXPORT_PREFIX
+      # - GAME_NAME
+      # - GAME_PORT
+
   build-editor:
     container_name: godot-build-editor
     image: h4de5/docker-godot-3-build-and-run

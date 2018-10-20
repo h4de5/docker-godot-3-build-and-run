@@ -69,7 +69,10 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 
   # let server point to downloaded headless binary
   rm -f $DOCKER_GODOT_EDITOR/linux_server
-  ln -s $DOCKER_GODOT_EDITOR/Godot_v${DOCKER_GODOT_VERSION}-stable_linux_headless.64 $DOCKER_GODOT_EDITOR/linux_server
+  ln -s $DOCKER_GODOT_EDITOR/Godot_v${DOCKER_GODOT_VERSION}-stable_linux_server.64 $DOCKER_GODOT_EDITOR/linux_server
+
+  rm -f $DOCKER_GODOT_EDITOR/linux_headless
+  ln -s $DOCKER_GODOT_EDITOR/Godot_v${DOCKER_GODOT_VERSION}-stable_linux_headless.64 $DOCKER_GODOT_EDITOR/linux_headless
 
 fi
 
