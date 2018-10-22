@@ -41,17 +41,13 @@ update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++
 # godot.<platform>.[opt].[tools/debug].<architecture>[extension]
 
 if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
-
-~/.local/share/godot/templates/${DOCKER_GODOT_EXPORT_PREFIX}/
-$DOCKER_GODOT_EXPORT_TEMPLATES
-
 	# creates version specific export template folder - for master branch
-    mkdir -p "${DOCKER_GODOT_EXPORT_TEMPLATES}/${DOCKER_GODOT_EXPORT_PREFIX}/"
+	mkdir -p "${DOCKER_GODOT_EXPORT_TEMPLATES}/${DOCKER_GODOT_EXPORT_PREFIX}/"
 
 	if [ "$2" == "linux" ] || [ "$2" == "all" ]; then
 		
 		echo "* Building godot for Linux X11"
-		scons -j $CORE_COUNT p=x11 target=release tools=no bits=64
+		scons -j $CORE_COUNT verbose=no p=x11 target=release tools=no bits=64
 		upx bin/godot.x11.opt.64
 		mv bin/godot.x11.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/linux_x11_64_release
 		
@@ -63,7 +59,7 @@ $DOCKER_GODOT_EXPORT_TEMPLATES
 	if [ "$2" == "windows" ] || [ "$2" == "all" ]; then
 
 		echo "* Building godot for Windows"
-		scons -j $CORE_COUNT p=windows target=release tools=no bits=64
+		scons -j $CORE_COUNT verbose=no p=windows target=release tools=no bits=64
 		x86_64-w64-mingw32-strip bin/godot.windows.opt.64.exe
 		mv bin/godot.windows.opt.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/windows_64_release.exe
 
@@ -75,10 +71,10 @@ $DOCKER_GODOT_EXPORT_TEMPLATES
 	if [ "$2" == "javascript" ] || [ "$2" == "all" ]; then
 
 		echo "* Building godot for Javascript"
-		scons -j $CORE_COUNT p=javascript target=release
+		scons -j $CORE_COUNT verbose=no p=javascript target=release tools=no bits=64
 		mv bin/godot.javascript.opt.zip $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/webassembly_release.zip
 
-		scons -j $CORE_COUNT p=javascript target=release_debug
+		scons -j $CORE_COUNT verbose=no p=javascript target=release_debug tools=no bits=64
 		mv bin/godot.javascript.opt.debug.zip $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/webassembly_debug.zip
 
 	fi
@@ -89,16 +85,26 @@ fi
 if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 	if [ "$2" == "server" ] || [ "$2" == "all" ]; then
   
+		# godot.<platform>.[opt].[tools/debug].<architecture>[extension]
 		# will be used to export and run games
 		echo "* Building godot for Linux Server"
-		scons -j $CORE_COUNT p=server target=release_debug tools=yes bits=64
+		scons -j $CORE_COUNT verbose=no p=server target=release_debug tools=yes bits=64
 		upx bin/godot_server.server.opt.tools.64
 		mv bin/godot_server.server.opt.tools.64 $DOCKER_GODOT_EDITOR/linux_server_64_tools
+		#cp $DOCKER_GODOT_EDITOR/linux_server_64_tools $DOCKER_GODOT_GAME_SOURCE/bin/
+		
+		scons -j $CORE_COUNT verbose=no p=server target=release_debug tools=no bits=64
+		upx bin/godot_server.server.opt.64
+		mv bin/godot_server.server.opt.64 $DOCKER_GODOT_EDITOR/linux_server_64_headless
 		#cp $DOCKER_GODOT_EDITOR/linux_server_64_tools $DOCKER_GODOT_GAME_SOURCE/bin/
 
 		# let server point to compiled binary
 		rm -f $DOCKER_GODOT_EDITOR/linux_server
 		ln -s $DOCKER_GODOT_EDITOR/linux_server_64_tools $DOCKER_GODOT_EDITOR/linux_server
+		
+		# let server point to compiled binary
+		rm -f $DOCKER_GODOT_EDITOR/linux_headless
+		ln -s $DOCKER_GODOT_EDITOR/linux_server_64_headless $DOCKER_GODOT_EDITOR/linux_headless
 
 	#   scons -j $CORE_COUNT p=server target=release tools=false bits=64
 	#   cp bin/godot_server.server.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/linux_server_64
@@ -117,7 +123,7 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 	if [ "$2" == "linux" ] || [ "$2" == "all" ]; then
 		
 		echo "* Building godot for Linux X11"
-		scons -j $CORE_COUNT p=x11 target=release_debug tools=yes bits=64
+		scons -j $CORE_COUNT verbose=no p=x11 target=release_debug tools=yes bits=64
 		upx bin/godot.x11.opt.tools.64
 		mv bin/godot.x11.opt.tools.64 $DOCKER_GODOT_EDITOR/linux_x11_64_tools
 		#cp $DOCKER_GODOT_EDITOR/linux_x11_64_tools $DOCKER_GODOT_GAME_SOURCE/bin/
@@ -126,7 +132,7 @@ if [ "$1" == "editor" ] || [ "$1" == "all" ]; then
 	if [ "$2" == "windows" ] || [ "$2" == "all" ]; then
 
 		echo "* Building godot for Windows"
-		scons -j $CORE_COUNT p=windows target=release_debug tools=yes bits=64
+		scons -j $CORE_COUNT verbose=no p=windows target=release_debug tools=yes bits=64
 		x86_64-w64-mingw32-strip bin/godot.windows.opt.tools.64.exe
 		mv bin/godot.windows.opt.tools.64.exe $DOCKER_GODOT_EDITOR/windows_64_tools.exe
 		#cp $DOCKER_GODOT_EDITOR/windows_64_tools.exe $DOCKER_GODOT_GAME_SOURCE/bin/
