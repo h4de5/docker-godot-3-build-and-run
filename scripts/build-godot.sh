@@ -20,7 +20,6 @@ cd $DOCKER_GODOT_SOURCE
 # get latest changes
 git pull
 
-# rm -rf templates/*
 mkdir -p $DOCKER_GODOT_EXPORT_TEMPLATES
 mkdir -p $DOCKER_GODOT_EDITOR
 
@@ -42,18 +41,18 @@ update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++
 
 if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
 	# creates version specific export template folder - for master branch
-	mkdir -p "${DOCKER_GODOT_EXPORT_TEMPLATES}/${DOCKER_GODOT_EXPORT_PREFIX}/"
+	mkdir -p "${DOCKER_GODOT_EXPORT_TEMPLATES}/${DOCKER_GODOT_VERSION}.${DOCKER_GODOT_VERSION_SUFFIX}/"
 
 	if [ "$2" == "linux" ] || [ "$2" == "all" ]; then
 		
 		echo "* Building godot for Linux X11"
 		scons -j $CORE_COUNT verbose=no p=x11 target=release tools=no bits=64
 		upx bin/godot.x11.opt.64
-		mv bin/godot.x11.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/linux_x11_64_release
+		mv bin/godot.x11.opt.64 $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_VERSION}.${DOCKER_GODOT_VERSION_SUFFIX}/linux_x11_64_release
 		
-		scons -j $CORE_COUNT p=x11 target=release_debug tools=no bits=64
+		scons -j $CORE_COUNT verbose=no p=x11 target=release_debug tools=no bits=64
 		upx bin/godot.x11.opt.debug.64
-		mv bin/godot.x11.opt.debug.64 $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/linux_x11_64_debug
+		mv bin/godot.x11.opt.debug.64 $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_VERSION}.${DOCKER_GODOT_VERSION_SUFFIX}/linux_x11_64_debug
 	
 	fi
 	if [ "$2" == "windows" ] || [ "$2" == "all" ]; then
@@ -61,21 +60,21 @@ if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
 		echo "* Building godot for Windows"
 		scons -j $CORE_COUNT verbose=no p=windows target=release tools=no bits=64
 		x86_64-w64-mingw32-strip bin/godot.windows.opt.64.exe
-		mv bin/godot.windows.opt.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/windows_64_release.exe
+		mv bin/godot.windows.opt.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_VERSION}.${DOCKER_GODOT_VERSION_SUFFIX}/windows_64_release.exe
 
-		scons -j $CORE_COUNT p=windows target=release_debug tools=no bits=64
+		scons -j $CORE_COUNT verbose=no p=windows target=release_debug tools=no bits=64
 		x86_64-w64-mingw32-strip bin/godot.windows.opt.debug.64.exe
-		mv bin/godot.windows.opt.debug.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/windows_64_debug.exe
+		mv bin/godot.windows.opt.debug.64.exe $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_VERSION}.${DOCKER_GODOT_VERSION_SUFFIX}/windows_64_debug.exe
 	
 	fi
 	if [ "$2" == "javascript" ] || [ "$2" == "all" ]; then
 
 		echo "* Building godot for Javascript"
 		scons -j $CORE_COUNT verbose=no p=javascript target=release tools=no bits=64
-		mv bin/godot.javascript.opt.zip $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/webassembly_release.zip
+		mv bin/godot.javascript.opt.zip $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_VERSION}.${DOCKER_GODOT_VERSION_SUFFIX}/webassembly_release.zip
 
 		scons -j $CORE_COUNT verbose=no p=javascript target=release_debug tools=no bits=64
-		mv bin/godot.javascript.opt.debug.zip $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_EXPORT_PREFIX}/webassembly_debug.zip
+		mv bin/godot.javascript.opt.debug.zip $DOCKER_GODOT_EXPORT_TEMPLATES/${DOCKER_GODOT_VERSION}.${DOCKER_GODOT_VERSION_SUFFIX}/webassembly_debug.zip
 
 	fi
 

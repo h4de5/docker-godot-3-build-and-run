@@ -3,7 +3,13 @@ version: '2.0'
 services:
   run-game:
     container_name: godot-run-game
-    image: h4de5/docker-godot-3-build-and-run
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        godot_version: ${DOCKER_GODOT_VERSION}
+        godot_suffix: ${DOCKER_GODOT_VERSION_SUFFIX}
+    image: h4de5/docker-godot-3-build-and-run:latest
     restart: unless-stopped
     ports:
       - ${GAME_PORT}:${GAME_PORT}
@@ -15,13 +21,19 @@ services:
       # - ${PATH_GODOT_TEMPLATES}:/root/workspace/templates/
     environment:
       - DOCKER_GODOT_VERSION
-      - DOCKER_GODOT_EXPORT_PREFIX
+      - DOCKER_GODOT_VERSION_SUFFIX
       - GAME_PORT
       # - GAME_NAME
 
   export-game:
     container_name: godot-export-game
-    image: h4de5/docker-godot-3-build-and-run
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        godot_version: ${DOCKER_GODOT_VERSION}
+        godot_suffix: ${DOCKER_GODOT_VERSION_SUFFIX}
+    image: h4de5/docker-godot-3-build-and-run:latest
     # ports:
     #   - ${GAME_PORT}:${GAME_PORT}
     command: /root/workspace/build-scripts/export-game.sh ${GAME_NAME}
@@ -32,13 +44,19 @@ services:
       - ${PATH_GODOT_TEMPLATES}:/root/workspace/templates/
     environment:
       - DOCKER_GODOT_VERSION
-      - DOCKER_GODOT_EXPORT_PREFIX
+      - DOCKER_GODOT_VERSION_SUFFIX
       - GAME_NAME
       # - GAME_PORT
 
   build-templates:
     container_name: godot-build-templates
-    image: h4de5/docker-godot-3-build-and-run
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        godot_version: ${DOCKER_GODOT_VERSION}
+        godot_suffix: ${DOCKER_GODOT_VERSION_SUFFIX}
+    image: h4de5/docker-godot-3-build-and-run:latest
     # ports:
     #   - ${GAME_PORT}:${GAME_PORT}
     command: /root/workspace/build-scripts/build-godot.sh templates all
@@ -49,13 +67,19 @@ services:
       - ${PATH_GODOT_TEMPLATES}:/root/workspace/templates/
     environment:
       - DOCKER_GODOT_VERSION
-      - DOCKER_GODOT_EXPORT_PREFIX
+      - DOCKER_GODOT_VERSION_SUFFIX
       # - GAME_NAME
       # - GAME_PORT
 
   build-server:
-    container_name: godot-build-editor
-    image: h4de5/docker-godot-3-build-and-run
+    container_name: godot-build-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        godot_version: ${DOCKER_GODOT_VERSION}
+        godot_suffix: ${DOCKER_GODOT_VERSION_SUFFIX}
+    image: h4de5/docker-godot-3-build-and-run:latest
     # ports:
     #   - ${GAME_PORT}:${GAME_PORT}
     command: /root/workspace/build-scripts/build-godot.sh editor server
@@ -66,13 +90,19 @@ services:
       # - ${PATH_GODOT_TEMPLATES}:/root/workspace/templates/
     environment:
       - DOCKER_GODOT_VERSION
-      - DOCKER_GODOT_EXPORT_PREFIX
+      - DOCKER_GODOT_VERSION_SUFFIX
       # - GAME_NAME
       # - GAME_PORT
 
   build-editor:
     container_name: godot-build-editor
-    image: h4de5/docker-godot-3-build-and-run
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        godot_version: ${DOCKER_GODOT_VERSION}
+        godot_suffix: ${DOCKER_GODOT_VERSION_SUFFIX}
+    image: h4de5/docker-godot-3-build-and-run:latest
     # ports:
     #   - ${GAME_PORT}:${GAME_PORT}
     command: /root/workspace/build-scripts/build-godot.sh editor ${GODOT_EDITOR_OS}
@@ -83,6 +113,6 @@ services:
       # - ${PATH_GODOT_TEMPLATES}:/root/workspace/templates/
     environment:
       - DOCKER_GODOT_VERSION
-      - DOCKER_GODOT_EXPORT_PREFIX
+      - DOCKER_GODOT_VERSION_SUFFIX
       # - GAME_NAME
       # - GAME_PORT
