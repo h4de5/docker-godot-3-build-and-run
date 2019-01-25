@@ -14,16 +14,16 @@ mkdir -p ${HOME}/.config/godot/projects
 cd "$DOCKER_GODOT_GAME_SOURCE"
 echo "* Exporting for windows to: $DOCKER_GODOT_EXPORT_GAME/win/"
 mkdir -p "$DOCKER_GODOT_EXPORT_GAME/win/"
-$DOCKER_GODOT_SERVER_BINARY --export "Windows Desktop" --path "${DOCKER_GODOT_GAME_SOURCE}" --quit -v "$DOCKER_GODOT_EXPORT_GAME/win/${1}.exe"
+$DOCKER_GODOT_HEADLESS_BINARY --export "Windows Desktop" --path "${DOCKER_GODOT_GAME_SOURCE}" --quit -v ${PARAMETERS_EXPORT} "$DOCKER_GODOT_EXPORT_GAME/win/${1}.exe"
 
 echo "* Exporting for HTML5 to: $DOCKER_GODOT_EXPORT_GAME/web/"
 mkdir -p "$DOCKER_GODOT_EXPORT_GAME/web/"
 # bug in optimize export
-$DOCKER_GODOT_SERVER_BINARY --export-debug "HTML5" --path "${DOCKER_GODOT_GAME_SOURCE}" --quit -v "$DOCKER_GODOT_EXPORT_GAME/web/index.html"
+$DOCKER_GODOT_HEADLESS_BINARY --export-debug "HTML5" --path "${DOCKER_GODOT_GAME_SOURCE}" --quit -v ${PARAMETERS_EXPORT} "$DOCKER_GODOT_EXPORT_GAME/web/index.html"
 
 echo "* Exporting for linux to: $DOCKER_GODOT_EXPORT_GAME/linux/"
 mkdir -p "$DOCKER_GODOT_EXPORT_GAME/linux/"
-$DOCKER_GODOT_SERVER_BINARY --export "Linux/X11" --path "${DOCKER_GODOT_GAME_SOURCE}" --quit -v "$DOCKER_GODOT_EXPORT_GAME/linux/${1}"
+$DOCKER_GODOT_HEADLESS_BINARY --export "Linux/X11" --path "${DOCKER_GODOT_GAME_SOURCE}" --quit -v ${PARAMETERS_EXPORT} "$DOCKER_GODOT_EXPORT_GAME/linux/${1}"
 
 # echo "* Moving exported binaries to source directory:"
 # mkdir -p "$SOURCE_PATH/bin"
