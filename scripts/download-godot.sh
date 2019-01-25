@@ -8,11 +8,17 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
   exit 0
 fi
 
+if [ -z "$DOCKER_GODOT_VERSION" ]
+then
+	DOCKER_GODOT_VERSION=3.0.6
+	DOCKER_GODOT_VERSION_SUFFIX=stable
+fi
+
 # version which are not stable are located in a subfolder - also they hold a subversion number which is 1 for now ..
 if [ "${DOCKER_GODOT_VERSION_SUFFIX}" == "stable" ]; then
   GODOT_SUFFIX_TEMP="stable"
 else
-  GODOT_SUFFIX_TEMP="${DOCKER_GODOT_VERSION_SUFFIX}1"
+  GODOT_SUFFIX_TEMP="${DOCKER_GODOT_VERSION_SUFFIX}"
 fi
 
 if [ "$1" == "templates" ] || [ "$1" == "all" ]; then
