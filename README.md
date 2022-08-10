@@ -1,3 +1,7 @@
+#  THIS IS NO LONGER MAINTAINED - PLEASE USE GODOT TEMPLATE REPOSITORY: https://github.com/PanLabGameDev/godot-boilerplate
+
+
+
 [![Docker Build](https://img.shields.io/docker/build/h4de5/docker-godot-3-build-and-run.svg)](https://hub.docker.com/r/h4de5/docker-godot-3-build-and-run/builds/)
 [![Docker Pull](https://img.shields.io/docker/pulls/h4de5/docker-godot-3-build-and-run.svg)](https://hub.docker.com/r/h4de5/docker-godot-3-build-and-run/builds/)
 
